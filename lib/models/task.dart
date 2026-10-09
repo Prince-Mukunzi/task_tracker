@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:sla_tracker/models/enums.dart';
+import 'package:task_tracker/models/enums.dart';
 
 part 'task.g.dart';
 
