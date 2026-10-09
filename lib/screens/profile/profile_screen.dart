@@ -22,3 +22,34 @@ class ProfileScreen extends ConsumerStatefulWidget {
   @override
   ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
+
+class _ProfileScreenState extends ConsumerState<ProfileScreen>
+    with TickerProviderStateMixin {
+late AnimationController _entranceCtrl;
+
+bool _pushNotifications = true;
+bool _deadlineAlerts = true;
+bool _mentionAlerts = true;
+String _defaultView = 'Dashboard';
+
+// SLA thresholds (hours)
+double _atRiskThreshold = 24;
+String _slaUnit = 'Hours';
+
+@override
+void initState() {
+super.initState();
+_entranceCtrl = AnimationController(
+vsync: this,
+duration: const Duration(milliseconds: 900),
+);
+WidgetsBinding.instance.addPostFrameCallback((_) {
+_entranceCtrl.forward();
+});
+}
+
+@override
+void dispose() {
+_entranceCtrl.dispose();
+super.dispose();
+}
