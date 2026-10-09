@@ -247,5 +247,101 @@ void _showEditProfile() {
     );
   }
 
+  void _showSLAThresholdPicker() {
+    HapticFeedback.lightImpact();
+    final options = [4.0, 8.0, 12.0, 24.0, 48.0, 72.0];
+    showCupertinoModalPopup(
+      context: context,
+      builder: (ctx) => Material(
+        color: Colors.transparent,
+        child: Container(
+          decoration: const BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(14)),
+          ),
+          child: SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Container(
+                      width: 36,
+                      height: 5,
+                      decoration: BoxDecoration(
+                        color: AppColors.textTertiary,
+                        borderRadius: BorderRadius.circular(2.5),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'At-Risk Threshold',
+                    style: AppTypography.headingLarge.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Tasks are marked "at risk" when remaining time falls below this threshold.',
+                    style: AppTypography.caption.copyWith(
+                      fontSize: 12,
+                      color: AppColors.textTertiary,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ...options.map((hours) {
+                    final isSelected = _atRiskThreshold == hours;
+                    final label = hours >= 24
+                        ? '${(hours / 24).toInt()} ${(hours / 24).toInt() == 1 ? 'day' : 'days'}'
+                        : '${hours.toInt()} hours';
+                    return PressableScale(
+                      onTap: () {
+                        HapticFeedback.selectionClick();
+                        setState(() => _atRiskThreshold = hours);
+                        Navigator.of(ctx).pop();
+                      },
+                      pressedScale: 0.98,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: AppColors.divider.withValues(alpha: 0.1),
+                              width: 0.5,
+                            ),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              label,
+                              style: AppTypography.bodyLarge.copyWith(
+                                fontSize: 15,
+                                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                                color: isSelected ? AppColors.textPrimary : AppColors.textSecondary,
+                              ),
+                            ),
+                            const Spacer(),
+                            if (isSelected)
+                              Icon(LucideIcons.check, size: 16, color: AppColors.white),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
 
   
