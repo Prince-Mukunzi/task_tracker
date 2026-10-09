@@ -55,7 +55,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
     super.dispose();
   }
 
-void _showEditProfile() {
+  void _showEditProfile() {
     final currentUser = ref.read(currentUserProvider);
     if (currentUser == null) return;
 
@@ -102,7 +102,11 @@ void _showEditProfile() {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  _SheetTextField(controller: nameCtrl, hint: 'Name', autofocus: true),
+                  _SheetTextField(
+                    controller: nameCtrl,
+                    hint: 'Name',
+                    autofocus: true,
+                  ),
                   const SizedBox(height: 12),
                   _SheetTextField(controller: roleCtrl, hint: 'Role'),
                   const SizedBox(height: 24),
@@ -114,7 +118,7 @@ void _showEditProfile() {
 
                       final initials = name.split(' ').length >= 2
                           ? '${name.split(' ')[0][0]}${name.split(' ')[1][0]}'
-                              .toUpperCase()
+                                .toUpperCase()
                           : name.substring(0, 2).toUpperCase();
 
                       final updated = currentUser.copyWith(
@@ -199,45 +203,50 @@ void _showEditProfile() {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  ...options.map((opt) => PressableScale(
-                    onTap: () {
-                      HapticFeedback.selectionClick();
-                      setState(() => _defaultView = opt);
-                      Navigator.of(ctx).pop();
-                    },
-                    pressedScale: 0.98,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: AppColors.divider.withValues(alpha: 0.1),
-                            width: 0.5,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            opt,
-                            style: AppTypography.bodyLarge.copyWith(
-                              fontSize: 15,
-                              fontWeight: _defaultView == opt
-                                  ? FontWeight.w600
-                                  : FontWeight.w400,
-                              color: _defaultView == opt
-                                  ? AppColors.textPrimary
-                                  : AppColors.textSecondary,
+                  ...options.map(
+                    (opt) => PressableScale(
+                      onTap: () {
+                        HapticFeedback.selectionClick();
+                        setState(() => _defaultView = opt);
+                        Navigator.of(ctx).pop();
+                      },
+                      pressedScale: 0.98,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: AppColors.divider.withValues(alpha: 0.1),
+                              width: 0.5,
                             ),
                           ),
-                          const Spacer(),
-                          if (_defaultView == opt)
-                            Icon(LucideIcons.check,
-                                size: 16, color: AppColors.white),
-                        ],
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              opt,
+                              style: AppTypography.bodyLarge.copyWith(
+                                fontSize: 15,
+                                fontWeight: _defaultView == opt
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: _defaultView == opt
+                                    ? AppColors.textPrimary
+                                    : AppColors.textSecondary,
+                              ),
+                            ),
+                            const Spacer(),
+                            if (_defaultView == opt)
+                              Icon(
+                                LucideIcons.check,
+                                size: 16,
+                                color: AppColors.white,
+                              ),
+                          ],
+                        ),
                       ),
                     ),
-                  )),
+                  ),
                 ],
               ),
             ),
@@ -322,13 +331,21 @@ void _showEditProfile() {
                               label,
                               style: AppTypography.bodyLarge.copyWith(
                                 fontSize: 15,
-                                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                                color: isSelected ? AppColors.textPrimary : AppColors.textSecondary,
+                                fontWeight: isSelected
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: isSelected
+                                    ? AppColors.textPrimary
+                                    : AppColors.textSecondary,
                               ),
                             ),
                             const Spacer(),
                             if (isSelected)
-                              Icon(LucideIcons.check, size: 16, color: AppColors.white),
+                              Icon(
+                                LucideIcons.check,
+                                size: 16,
+                                color: AppColors.white,
+                              ),
                           ],
                         ),
                       ),
@@ -407,13 +424,21 @@ void _showEditProfile() {
                               opt,
                               style: AppTypography.bodyLarge.copyWith(
                                 fontSize: 15,
-                                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                                color: isSelected ? AppColors.textPrimary : AppColors.textSecondary,
+                                fontWeight: isSelected
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: isSelected
+                                    ? AppColors.textPrimary
+                                    : AppColors.textSecondary,
                               ),
                             ),
                             const Spacer(),
                             if (isSelected)
-                              Icon(LucideIcons.check, size: 16, color: AppColors.white),
+                              Icon(
+                                LucideIcons.check,
+                                size: 16,
+                                color: AppColors.white,
+                              ),
                           ],
                         ),
                       ),
@@ -434,7 +459,9 @@ void _showEditProfile() {
       context: context,
       builder: (ctx) => CupertinoActionSheet(
         title: const Text('Clear all tasks?'),
-        message: const Text('This will permanently delete all tasks and cannot be undone.'),
+        message: const Text(
+          'This will permanently delete all tasks and cannot be undone.',
+        ),
         actions: [
           CupertinoActionSheetAction(
             isDestructiveAction: true,
@@ -505,9 +532,7 @@ void _showEditProfile() {
       context: context,
       builder: (ctx) => CupertinoActionSheet(
         title: const Text('Sign out?'),
-        message: const Text(
-          'Your tasks and workspace data will be kept.',
-        ),
+        message: const Text('Your tasks and workspace data will be kept.'),
         actions: [
           CupertinoActionSheetAction(
             isDestructiveAction: true,
@@ -521,9 +546,7 @@ void _showEditProfile() {
 
               if (!context.mounted) return;
               Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (_) => const AuthScreen(),
-                ),
+                MaterialPageRoute(builder: (_) => const AuthScreen()),
                 (route) => false,
               );
             },
@@ -582,7 +605,11 @@ void _showEditProfile() {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  _SheetTextField(controller: nameCtrl, hint: 'Name', autofocus: true),
+                  _SheetTextField(
+                    controller: nameCtrl,
+                    hint: 'Name',
+                    autofocus: true,
+                  ),
                   const SizedBox(height: 12),
                   _SheetTextField(controller: roleCtrl, hint: 'Role'),
                   const SizedBox(height: 24),
@@ -593,10 +620,12 @@ void _showEditProfile() {
                       if (name.length < 2) return;
 
                       final initials = name.split(' ').length >= 2
-                          ? '${name.split(' ')[0][0]}${name.split(' ')[1][0]}'.toUpperCase()
+                          ? '${name.split(' ')[0][0]}${name.split(' ')[1][0]}'
+                                .toUpperCase()
                           : name.substring(0, 2).toUpperCase();
 
-                      final id = 'member_${DateTime.now().millisecondsSinceEpoch}';
+                      final id =
+                          'member_${DateTime.now().millisecondsSinceEpoch}';
                       final member = TeamMember(
                         id: id,
                         name: name,
@@ -604,7 +633,9 @@ void _showEditProfile() {
                         avatarInitials: initials,
                       );
 
-                      await ref.read(teamMemberRepositoryProvider).saveMember(member);
+                      await ref
+                          .read(teamMemberRepositoryProvider)
+                          .saveMember(member);
                       ref.invalidate(teamMembersProvider);
 
                       if (!ctx.mounted) return;
@@ -651,7 +682,9 @@ void _showEditProfile() {
             onPressed: () async {
               Navigator.of(ctx).pop();
               HapticFeedback.heavyImpact();
-              await ref.read(teamMemberRepositoryProvider).deleteMember(member.id);
+              await ref
+                  .read(teamMemberRepositoryProvider)
+                  .deleteMember(member.id);
               ref.invalidate(teamMembersProvider);
               setState(() {});
             },
@@ -773,9 +806,13 @@ void _showEditProfile() {
                                 ],
                               ),
                             ),
-                            Icon(LucideIcons.chevronRight,
-                                size: 16,
-                                color: AppColors.textTertiary.withValues(alpha: 0.4)),
+                            Icon(
+                              LucideIcons.chevronRight,
+                              size: 16,
+                              color: AppColors.textTertiary.withValues(
+                                alpha: 0.4,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -904,8 +941,10 @@ void _showEditProfile() {
                   child: Column(
                     children: [
                       ...ref.watch(teamMembersProvider).map((member) {
-                        final isCurrentUser = member.id == (currentUser?.id ?? '');
-                        final isLast = member == ref.watch(teamMembersProvider).last;
+                        final isCurrentUser =
+                            member.id == (currentUser?.id ?? '');
+                        final isLast =
+                            member == ref.watch(teamMembersProvider).last;
                         return _MemberRow(
                           member: member,
                           isCurrentUser: isCurrentUser,
@@ -974,4 +1013,250 @@ void _showEditProfile() {
               ),
             ),
           ),
-  
+
+          // ─── DATA MANAGEMENT ───
+          _buildSectionHeader('DATA MANAGEMENT', 0.48),
+          SliverToBoxAdapter(
+            child: FadeSlideIn(
+              parentAnimation: _entranceCtrl,
+              interval: const Interval(0.5, 0.68),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24, 4, 24, 0),
+                child: FrostedContainer(
+                  borderRadius: 16,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      SettingsRow(
+                        icon: LucideIcons.trash2,
+                        label: 'Clear All Tasks',
+                        isDestructive: true,
+                        onTap: _showClearAllTasks,
+                      ),
+                      SettingsRow(
+                        icon: LucideIcons.rotateCcw,
+                        label: 'Reset App',
+                        subtitle: 'Delete everything and start over',
+                        isDestructive: true,
+                        showBorder: false,
+                        onTap: _showResetApp,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // ─── Sign Out ───
+          _buildSectionHeader('', 0.58),
+          SliverToBoxAdapter(
+            child: FadeSlideIn(
+              parentAnimation: _entranceCtrl,
+              interval: const Interval(0.6, 0.75),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24, 4, 24, 0),
+                child: FrostedContainer(
+                  borderRadius: 16,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: SettingsRow(
+                    icon: LucideIcons.logOut,
+                    label: 'Sign Out',
+                    isDestructive: true,
+                    showBorder: false,
+                    onTap: _showLogout,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          SliverToBoxAdapter(child: SizedBox(height: bottomPadding + 120)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String label, double startInterval) {
+    return SliverToBoxAdapter(
+      child: FadeSlideIn(
+        parentAnimation: _entranceCtrl,
+        interval: Interval(
+          startInterval,
+          (startInterval + 0.18).clamp(0.0, 1.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (label.isNotEmpty)
+                Text(
+                  label,
+                  style: AppTypography.caption.copyWith(
+                    fontSize: 11,
+                    color: AppColors.textTertiary,
+                    letterSpacing: 1.5,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              const SizedBox(height: 4),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Member Row ───
+class _MemberRow extends StatelessWidget {
+  final TeamMember member;
+  final bool isCurrentUser;
+  final bool showBorder;
+  final VoidCallback? onRemove;
+
+  const _MemberRow({
+    required this.member,
+    required this.isCurrentUser,
+    this.showBorder = true,
+    this.onRemove,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      decoration: showBorder
+          ? BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: AppColors.divider.withValues(alpha: 0.08),
+                  width: 0.5,
+                ),
+              ),
+            )
+          : null,
+      child: Row(
+        children: [
+          Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.surfaceLight,
+            ),
+            child: Center(
+              child: Text(
+                member.avatarInitials,
+                style: AppTypography.caption.copyWith(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      member.name,
+                      style: AppTypography.bodyMedium.copyWith(
+                        fontSize: 15,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    if (isCurrentUser) ...[
+                      const SizedBox(width: 6),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 1,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.surfaceLight,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          'You',
+                          style: AppTypography.caption.copyWith(
+                            fontSize: 9,
+                            color: AppColors.textTertiary,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+                const SizedBox(height: 1),
+                Text(
+                  member.role,
+                  style: AppTypography.caption.copyWith(
+                    fontSize: 12,
+                    color: AppColors.textTertiary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          if (onRemove != null)
+            PressableScale(
+              onTap: onRemove,
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: Icon(
+                  LucideIcons.x,
+                  size: 14,
+                  color: AppColors.textTertiary.withValues(alpha: 0.4),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── Reusable text field for sheets ───
+class _SheetTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hint;
+  final bool autofocus;
+
+  const _SheetTextField({
+    required this.controller,
+    required this.hint,
+    this.autofocus = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      autofocus: autofocus,
+      style: AppTypography.bodyLarge.copyWith(color: AppColors.textPrimary),
+      cursorColor: AppColors.white,
+      decoration: InputDecoration(
+        hintText: hint,
+        hintStyle: AppTypography.bodyLarge.copyWith(
+          color: AppColors.textTertiary,
+        ),
+        border: InputBorder.none,
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.divider.withValues(alpha: 0.3),
+          ),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.white),
+        ),
+      ),
+    );
+  }
+}
