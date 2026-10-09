@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:sla_tracker/models/task.dart';
+import 'package:task_tracker/models/task.dart';
 
 class TaskRepository {
   Box<Task> get _box => Hive.box<Task>('tasks');
