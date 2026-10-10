@@ -35,6 +35,16 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+  # Local storage (SQLite)
+  sqflite: ^2.4.0
+  path: ^1.9.0
+
+  # Used by the shared theme and components
+  google_fonts: ^6.2.1
+  lucide_icons_flutter: 3.1.20
+  sprung: ^3.0.0
+  hive: ^2.2.3 # still needed by models/enums.dart until the team finishes moving to SQLite
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
