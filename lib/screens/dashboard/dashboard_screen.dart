@@ -22,6 +22,7 @@ import '../task_detail/task_detail_screen.dart';
 import '../../core/utils/formatters.dart';
 import '../../core/components/bottom_sheet_handle.dart';
 import '../../core/components/dismissible_backgrounds.dart';
+import 'lib/screens/dashboard/task_charts.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
