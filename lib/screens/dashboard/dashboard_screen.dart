@@ -17,12 +17,12 @@ import '../../providers/comment_provider.dart';
 import '../../providers/task_provider.dart';
 import '../../providers/team_member_provider.dart';
 import '../create_task/create_task_screen.dart';
-import '../inbox/inbox_screen.dart';
+import '../notifications/notifications_screen.dart';
 import '../task_detail/task_detail_screen.dart';
 import '../../core/utils/formatters.dart';
 import '../../core/components/bottom_sheet_handle.dart';
 import '../../core/components/dismissible_backgrounds.dart';
-import 'lib/screens/dashboard/task_charts.dart';
+import 'task_charts.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
@@ -141,7 +141,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
   void _openActivity() {
     HapticFeedback.lightImpact();
     Navigator.of(context).push(
-      IOSPushRoute(page: const InboxScreen()),
+      IOSPushRoute(page: const NotificationsScreen()),
     );
   }
 
